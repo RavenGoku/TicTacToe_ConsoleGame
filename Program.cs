@@ -7,7 +7,7 @@ namespace TicTacToe_ConsoleGame
     {
         private static void Main(string[] args)
         {
-            //Create two players Type from basic player class
+            //Create two players Type from basic player class contain sign and player name
             Player playerOne = new Player("Player One","O");
             Player playerTwo = new Player("Player Two","X");
 
