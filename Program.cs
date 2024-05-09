@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿using System.Numerics;
+using System.Security.Cryptography.X509Certificates;
 
 namespace TicTacToe_ConsoleGame
 {
@@ -6,9 +7,11 @@ namespace TicTacToe_ConsoleGame
     {
         private static void Main(string[] args)
         {
+            //Create two players Type from basic player class
             Player playerOne = new Player("Player One","O");
             Player playerTwo = new Player("Player Two","X");
 
+            //endless while loop.
             do
             {
                 string[,] board = new string[3,3]
@@ -17,14 +20,46 @@ namespace TicTacToe_ConsoleGame
                 { "4","5","6" },
                 { "7","8","9" }
                 };
+                bool isWon = false;
 
                 SetField(board);
+                // while loop is used till one of player will not win.
+                // then game starts again
+                do
+                {
+                    PlayerInput(playerOne,board);
+                    SetField(board);
+                    if( WinChecker(board,playerOne) )
+                    {
+                        isWon = true;
+                        break;
+                    }
 
+                    PlayerInput(playerTwo,board);
+                    SetField(board);
+                    if( WinChecker(board,playerTwo) )
+                    {
+                        isWon = true;
+                        break;
+                    }
+                } while( !isWon );
+
+                Console.WriteLine("Press any key to restart game...");
                 Console.ReadLine();
-                Console.Clear();
             } while( true );
         }
 
+        //----------------------------Functions----------------------------------------------
+
+        // ********************************************************************************
+        /// <summary>
+        /// Setting field of TicTacToe
+        /// </summary>
+        /// <param name="string"></param>
+        /// <param name="board"></param>
+        // <created>Kamil Mikolajewski,09/05/2024</created>
+        // <changed>Kamil Mikolajewski,09/05/2024</changed>
+        // ********************************************************************************
         private static void SetField(string[,] board)
         {
             Console.Clear();
@@ -39,14 +74,27 @@ namespace TicTacToe_ConsoleGame
             Console.WriteLine("     |     |     ");
         }
 
-        private static bool PlayerInput(Player player,string[,] board)
+        // ********************************************************************************
+        /// <summary>
+        /// Player should input to what field he wants to put his sign "X" or "O"
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="string"></param>
+        /// <param name="board"></param>
+        // <created>Kamil Mikolajewski,09/05/2024</created>
+        // <changed>Kamil Mikolajewski,09/05/2024</changed>
+        // ********************************************************************************
+        public static void PlayerInput(Player player,string[,] board)
         {
             string input;
+            // boolean needed to check if player will not overwrite others player sign
             bool isValidInput = false;
             do
             {
+                //gets player name and wait for proper input.
                 Console.Write(player.PlayerName + ": ");
                 input = Console.ReadLine();
+
                 switch( input )
                 {
                     case "1":
@@ -140,10 +188,20 @@ namespace TicTacToe_ConsoleGame
                         break;
                 }
             } while( !isValidInput );
-            return isValidInput;
         }
 
-        private static bool WinChecker(string[,] board,Player player)
+        // ********************************************************************************
+        /// <summary>
+        /// Function that check for vertical, horizontal, diagonal and reverse diagonal
+        /// match ups on the board, if so then return true
+        /// </summary>
+        /// <param name="board"></param>
+        /// <param name="player"></param>
+        /// <returns></returns>
+        // <created>Kamil Mikolajewski,09/05/2024</created>
+        // <changed>Kamil Mikolajewski,09/05/2024</changed>
+        // ********************************************************************************
+        public static bool WinChecker(string[,] board,Player player)
         {
             for( int row = 0, column = 0; row < board.GetLength(0); row++, column++ )
             {
@@ -151,6 +209,7 @@ namespace TicTacToe_ConsoleGame
                 if( board[row,0] == board[row,1] && board[row,1] == board[row,2] ||
                     board[0,row] == board[1,row] && board[1,row] == board[2,row] )
                 {
+                    Console.WriteLine();
                     Console.WriteLine(player.PlayerName + " Won!");
                     return true;
                 }
@@ -158,6 +217,7 @@ namespace TicTacToe_ConsoleGame
                 if( board[0,0] == board[1,1] && board[1,1] == board[2,2] ||
                     board[0,2] == board[1,1] && board[1,1] == board[2,0] )
                 {
+                    Console.WriteLine();
                     Console.WriteLine(player.PlayerName + " Won!");
                     return true;
                 }
