@@ -21,8 +21,8 @@ namespace TicTacToe_ConsoleGame
                 { "4","5","6" },
                 { "7","8","9" }
                 };
-                bool isWon = false;
 
+                bool isWon = false;
                 SetField(board);
                 // while loop is used till one of player will not win.
                 // then game starts again
@@ -54,7 +54,7 @@ namespace TicTacToe_ConsoleGame
 
         // ********************************************************************************
         /// <summary>
-        /// Setting field of TicTacToe
+        /// Setting field of TicTacToe that will display the game
         /// </summary>
         /// <param name="string"></param>
         /// <param name="board"></param>
