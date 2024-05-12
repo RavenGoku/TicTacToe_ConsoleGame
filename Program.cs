@@ -14,6 +14,7 @@ namespace TicTacToe_ConsoleGame
             //endless while loop.
             do
             {
+                //Game start
                 string[,] board = new string[3,3]
                 {
                 { "1","2","3" },
