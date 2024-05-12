@@ -54,7 +54,7 @@ namespace TicTacToe_ConsoleGame
 
         // ********************************************************************************
         /// <summary>
-        /// Setting field of TicTacToe that will display the game
+        /// Setting field of TicTacToe
         /// </summary>
         /// <param name="string"></param>
         /// <param name="board"></param>
